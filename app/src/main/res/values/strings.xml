@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">PM Patcher</string>
+    <string name="title">Pokémon Platinum Multiplayer</string>
+    <string name="subtitle">Build the Project PM ROM on your phone, optionally in French.</string>
+
+    <string name="step_us">1. Clean Pokémon Platinum ROM (USA, Rev 1)</string>
+    <string name="step_patch">2. Project PM patch (.xdelta)</string>
+    <string name="step_patch_hint">The normal, VisualPlus or VisualPlusCamera patch from the Project PM build.</string>
+    <string name="french_switch">French version</string>
+    <string name="step_fr">3. Pokémon Platinum ROM (France)</string>
+    <string name="step_fr_hint">Your French dump. Used for the official French text and graphics.</string>
+    <string name="french_gfx">Also use the French graphics (menus, title screen…)</string>
+    <string name="choose">Choose…</string>
+    <string name="create">Create the ROM</string>
+    <string name="none">No file selected</string>
+
+    <string name="checking">Checking…</string>
+    <string name="copying">Reading the file… %1$d%%</string>
+    <string name="us_ok">✓ Clean Platinum USA (Rev 1)</string>
+    <string name="fr_ok">✓ Pokémon Platine (France)</string>
+    <string name="patch_ok">✓ Valid xdelta patch (%1$s)</string>
+
+    <string name="step_verify">Verifying the ROM…</string>
+    <string name="step_patching">Applying the patch…</string>
+    <string name="step_french">Converting to French…</string>
+    <string name="step_saving">Saving…</string>
+    <string name="done">Done! Open %1$s with a DS emulator (melonDS, DraStic…).</string>
+    <string name="done_fr_stats">%1$d strings translated by the patcher, %2$d French graphics.</string>
+    <string name="busy">Please keep the app open.</string>
+
+    <string name="err_us_wrong_game">This is not Pokémon Platinum USA (game code %1$s, expected CPUE).</string>
+    <string name="err_us_not_clean">This Platinum USA ROM is not the clean Rev 1 dump the patch was made from. Use an unmodified dump.</string>
+    <string name="err_fr_wrong_game">This is not Pokémon Platine France (game code %1$s, expected CPUF).</string>
+    <string name="err_not_vcdiff">This file is not an xdelta patch.</string>
+    <string name="err_checksum">The patch result is corrupted (checksum mismatch). Is it the right patch for this ROM?</string>
+    <string name="err_rom_full">Not enough free space in the ROM for the French files.</string>
+    <string name="err_storage">Not enough storage space (about 400 MB of free space is needed).</string>
+    <string name="err_generic">Error: %1$s</string>
+    <string name="footer">No ROM or patch is included: use your own dumps and the official Project PM patch. Patching is done entirely on your phone.</string>
+</resources>

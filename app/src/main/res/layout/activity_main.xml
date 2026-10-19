@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:alpha="0.75"
+            android:text="@string/subtitle" />
+
+        <!-- 1. US ROM -->
+        <TextView style="@style/StepTitle" android:text="@string/step_us" />
+        <LinearLayout style="@style/Row">
+            <Button android:id="@+id/btnUs" style="@style/PickButton" android:text="@string/choose" />
+            <TextView android:id="@+id/statusUs" style="@style/Status" android:text="@string/none" />
+        </LinearLayout>
+
+        <!-- 2. Patch -->
+        <TextView style="@style/StepTitle" android:text="@string/step_patch" />
+        <TextView style="@style/Hint" android:text="@string/step_patch_hint" />
+        <LinearLayout style="@style/Row">
+            <Button android:id="@+id/btnPatch" style="@style/PickButton" android:text="@string/choose" />
+            <TextView android:id="@+id/statusPatch" style="@style/Status" android:text="@string/none" />
+        </LinearLayout>
+
+        <!-- 3. French -->
+        <Switch
+            android:id="@+id/switchFr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/french_switch"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/frBlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView style="@style/StepTitle" android:text="@string/step_fr" />
+            <TextView style="@style/Hint" android:text="@string/step_fr_hint" />
+            <LinearLayout style="@style/Row">
+                <Button android:id="@+id/btnFr" style="@style/PickButton" android:text="@string/choose" />
+                <TextView android:id="@+id/statusFr" style="@style/Status" android:text="@string/none" />
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/checkGfx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="@string/french_gfx" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnCreate"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="28dp"
+            android:enabled="false"
+            android:text="@string/create"
+            android:textSize="16sp" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@android:style/Widget.Material.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:max="1000"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/statusMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textIsSelectable="true"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:alpha="0.6"
+            android:text="@string/footer"
+            android:textSize="12sp" />
+    </LinearLayout>
+</ScrollView>

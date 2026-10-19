@@ -1,0 +1,12 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- Poke Ball -->
+    <path android:fillColor="#E8483C" android:pathData="M54,26a28,28 0 0,1 28,28h-28z M54,26a28,28 0 0,0 -28,28h28z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M26,54a28,28 0 0,0 56,0z"/>
+    <path android:fillColor="#1E1E28" android:pathData="M26,51h56v6h-56z"/>
+    <path android:fillColor="#1E1E28" android:pathData="M54,44a10,10 0 1,1 0,20a10,10 0 1,1 0,-20z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M54,48a6,6 0 1,1 0,12a6,6 0 1,1 0,-12z"/>
+    <!-- patch arrow -->
+    <path android:fillColor="#FFD54A" android:pathData="M70,66l10,0l0,-6l10,10l-10,10l0,-6l-10,0z"/>
+</vector>
