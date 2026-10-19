@@ -19,7 +19,7 @@ class PipelineTest {
         override fun log(msg: String) = println(msg)
     }
 
-    private fun run(patchName: String, french: Boolean, outName: String) {
+    private fun run(patchName: String, french: Boolean, outName: String, visual: Boolean = false) {
         assumeTrue(dir.isDirectory)
         val assets = File("src/main/assets")
         val t0 = System.currentTimeMillis()
@@ -29,6 +29,8 @@ class PipelineTest {
                 patch = File(dir, patchName).readBytes(),
                 frRom = if (french) File(dir, "Pokemon - Version Platine (France).nds") else null,
                 frenchGraphics = true,
+                visualBackgrounds = if (visual) File(assets, "visualplus/battlebg.narc").readBytes() else null,
+                visualCamera = if (visual) File(assets, "visualplus/cam_vanilla.bin").readBytes() to File(assets, "visualplus/cam_visual.bin").readBytes() else null,
                 charmap = File(assets, "charmap.txt").readText(),
                 translationsJson = File(assets, "trad_fr.json").readText(),
                 output = File(outDir, outName),
@@ -40,7 +42,7 @@ class PipelineTest {
         println("$outName in ${System.currentTimeMillis() - t0} ms")
     }
 
-    @Test fun patchOnly() = run("PlatinumMultiplayerV0.4.4.xdelta", false, "kt_us.nds")
-    @Test fun patchFrench() = run("PlatinumMultiplayerV0.4.4.xdelta", true, "kt_fr.nds")
-    @Test fun patchVisualCameraFrench() = run("PlatinumMultiplayerV0.4.4-VisualPlusCamera.xdelta", true, "kt_fr_vpc.nds")
+    @Test fun patch047() = run("PlatinumMultiplayerV0.4.7.xdelta", false, "kt047.nds")
+    @Test fun patch047VisualFrench() = run("PlatinumMultiplayerV0.4.7.xdelta", true, "kt047_vpc_fr.nds", visual = true)
+    @Test fun patch044Visual() = run("PlatinumMultiplayerV0.4.4.xdelta", false, "kt044_vpc.nds", visual = true)
 }

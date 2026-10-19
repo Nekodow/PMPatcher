@@ -6,9 +6,13 @@
     <string name="step_us">1. ROM Pokémon Platine propre (USA, Rev 1)</string>
     <string name="step_patch">2. Patch Project PM</string>
     <string name="step_patch_hint">Pour une version de Project PM plus récente que celle intégrée.</string>
-    <string name="patch_normal">Project PM 0.4.4 (intégré)</string>
-    <string name="patch_visual">Project PM 0.4.4 + fonds de combat Visual+ (intégré)</string>
-    <string name="patch_camera">Project PM 0.4.4 + fonds Visual+ et caméra 3D (intégré)</string>
+    <string name="patch_normal">Project PM 0.4.7 (intégré)</string>
+    <string name="visual_title">Visual+ (optionnel)</string>
+    <string name="visual_hint">Visual+ par MinT ChoK, décors dessinés par Young. Mêmes options que dans ProjectPMSetup.</string>
+    <string name="visual_bg">Fonds de combat Visual+</string>
+    <string name="visual_cam">Caméra de combat 3D Visual+</string>
+    <string name="step_visual">Application de Visual+…</string>
+    <string name="err_visual">Impossible d’appliquer Visual+ à ce patch (il ne correspond pas). Décoche Visual+ ou utilise le patch intégré.</string>
     <string name="patch_custom">Un autre fichier .xdelta…</string>
     <string name="french_switch">Version française</string>
     <string name="step_fr">3. ROM Pokémon Platine (France)</string>

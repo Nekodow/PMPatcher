@@ -3,7 +3,7 @@
 Android app to build the **Pokémon Platinum Multiplayer (Project PM)** ROM directly on your phone, optionally **in French**.
 *Français plus bas.*
 
-The **Project PM 0.4.4 patches are built in** (normal, Visual+ backgrounds, Visual+ backgrounds + 3D camera), included with the permission of their authors. You can still load another `.xdelta` file for a newer version. Those patches use LZMA secondary compression, which mobile patchers such as Rom Patcher JS or UniPatcher can't read; PM Patcher handles it natively.
+The **Project PM 0.4.7 patch is built in**, included with the permission of its authors. So are the optional **Visual+** extras (battle backgrounds and 3D battle camera), applied exactly like ProjectPMSetup does. You can still load another `.xdelta` file for a newer version. Those patches use LZMA secondary compression, which mobile patchers such as Rom Patcher JS or UniPatcher can't read; PM Patcher handles it natively.
 
 ## Download
 
@@ -20,10 +20,19 @@ Get the APK from the [Releases](../../releases) page. Android 7.0 or newer is re
 ## How to use
 
 1. Choose the USA ROM. A ✓ appears when it is the right dump.
-2. Pick the built-in patch: normal, Visual+, or Visual+ and 3D camera. You can also choose *Another .xdelta file…* for a newer Project PM version.
+2. Keep the built-in Project PM 0.4.7 patch, or choose *Another .xdelta file…* for a newer version.
+   *(Optional)* Tick **Visual+ battle backgrounds** and/or **Visual+ 3D battle camera**.
 3. *(Optional)* Turn on **French version**, choose the French ROM, and keep or untick the French graphics.
 4. Tap **Create the ROM** and pick where to save it.
 5. Play it with a DS emulator. For online play against PC players, see [melonDS-android (Project PM online)](https://github.com/Nekodow/melonDS-android).
+
+## Visual+ in Project PM 0.4.7+
+
+Since 0.4.7 there is a single `.xdelta`; Visual+ is no longer a separate patch. ProjectPMSetup (and this app) adds it afterwards:
+- **battle backgrounds**: replaces `battle/graphic/pl_batt_bg.narc` with the Visual+ NARC (same number of backgrounds);
+- **3D camera**: finds the vanilla 440-byte battle camera table (it must appear exactly once) and swaps in the Visual+ table.
+
+Applied to 0.4.4, this gives exactly the same ROM contents as the official `0.4.4-VisualPlusCamera.xdelta`.
 
 ## How the French version works
 
@@ -54,7 +63,8 @@ It can be tested on a PC against real ROMs:
 
 ## Credits
 
-- Project PM / Platinum Multiplayer by nUt, ComicartOlie and MottledAbyss. Their 0.4.4 patches (`app/src/main/assets/patches`) are redistributed with their permission and remain their work.
+- Project PM / Platinum Multiplayer by nUt, ComicartOlie and MottledAbyss. Their patch (`app/src/main/assets/patches`) is redistributed with their permission and remains their work.
+- Visual+ (battle backgrounds and 3D camera) is the work of **MinT ChoK**; the backdrops were drawn by **Young** for *Pokemon Another Red*. The files in `app/src/main/assets/visualplus` come from the Project PM build.
 - `charmap.txt` (Gen 4 character table) comes from the [pret/pokeplatinum](https://github.com/pret/pokeplatinum) decompilation project.
 - LZMA decoding by [XZ for Java](https://tukaani.org/xz/java.html) (public domain / 0BSD).
 
@@ -66,7 +76,7 @@ Pokémon is a trademark of Nintendo, Game Freak and Creatures. This project is n
 
 Application Android pour créer la ROM **Pokémon Platinum Multiplayer (Project PM)** directement sur ton téléphone, **en français** si tu veux.
 
-**Les patchs Project PM 0.4.4 sont intégrés** (normal, fonds Visual+, fonds Visual+ et caméra 3D), avec l’accord de leurs auteurs. Tu peux aussi charger un autre `.xdelta` pour une version plus récente. Ces patchs utilisent une compression LZMA que les patchers mobiles (Rom Patcher JS, UniPatcher…) ne savent pas lire. PM Patcher la gère.
+**Le patch Project PM 0.4.7 est intégré**, avec l’accord de ses auteurs, ainsi que les options **Visual+** (fonds de combat et caméra 3D), appliquées comme le fait ProjectPMSetup. Tu peux aussi charger un autre `.xdelta` pour une version plus récente. Ces patchs utilisent une compression LZMA que les patchers mobiles (Rom Patcher JS, UniPatcher…) ne savent pas lire. PM Patcher la gère.
 
 ## Ce qu'il faut
 
@@ -80,7 +90,8 @@ Application Android pour créer la ROM **Pokémon Platinum Multiplayer (Project 
 ## Utilisation
 
 1. Choisis la ROM USA. Un ✓ apparaît si c'est la bonne.
-2. Choisis le patch intégré : normal, Visual+, ou Visual+ et caméra 3D. Tu peux aussi prendre *Un autre fichier .xdelta…* pour une version plus récente.
+2. Garde le patch intégré Project PM 0.4.7, ou prends *Un autre fichier .xdelta…* pour une version plus récente.
+   *(Optionnel)* Coche **Fonds de combat Visual+** et/ou **Caméra de combat 3D Visual+**.
 3. *(Optionnel)* Active **Version française** et choisis la ROM FR.
 4. Appuie sur **Créer la ROM** et choisis où l'enregistrer.
 5. Joue avec un émulateur DS. Pour jouer en ligne avec des joueurs PC : [melonDS-android (Project PM online)](https://github.com/Nekodow/melonDS-android).

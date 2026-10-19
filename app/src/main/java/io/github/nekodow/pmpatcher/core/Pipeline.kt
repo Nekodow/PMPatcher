@@ -10,7 +10,7 @@ object Pipeline {
     const val US_SHA1 = "0862ec35b24de5c7e2dcb88c9eea0873110d755c" // Platinum (USA) (Rev 1), as checked by Project PM Setup
     const val ROM_SIZE = 128L * 1024 * 1024
 
-    enum class Step { VERIFY, PATCH, FRENCH, DONE }
+    enum class Step { VERIFY, PATCH, VISUAL, FRENCH, DONE }
 
     interface Listener {
         fun step(step: Step)
@@ -23,6 +23,8 @@ object Pipeline {
         val patch: ByteArray,
         val frRom: File?,
         val frenchGraphics: Boolean,
+        val visualBackgrounds: ByteArray?,
+        val visualCamera: Pair<ByteArray, ByteArray>?,
         val charmap: String,
         val translationsJson: String,
         val output: File,
@@ -65,17 +67,26 @@ object Pipeline {
         }
         if (gameCode(o.output) != "CPUE") throw PatchException("bad_output")
         var stats: Francizer.Stats? = null
-        if (o.frRom != null) {
-            l.step(Step.FRENCH); l.progress(0f)
+        if (o.frRom != null || o.visualBackgrounds != null || o.visualCamera != null) {
             RandomAccessFile(o.usRom, "r").use { usF ->
-                RandomAccessFile(o.frRom, "r").use { frF ->
-                    RandomAccessFile(o.output, "rw").use { pmF ->
-                        if (pmF.length() < ROM_SIZE) pmF.setLength(ROM_SIZE)
-                        stats = Francizer(
-                            NdsRom(usF), NdsRom(frF), NdsRom(pmF, writable = true),
-                            Charset(o.charmap), Francizer.parseTranslations(o.translationsJson),
-                        ) { l.log(it) }.run(o.frenchGraphics)
+                RandomAccessFile(o.output, "rw").use { pmF ->
+                    if (pmF.length() < ROM_SIZE) pmF.setLength(ROM_SIZE)
+                    val pm = NdsRom(pmF, writable = true)
+                    if (o.visualBackgrounds != null || o.visualCamera != null) {
+                        l.step(Step.VISUAL); l.progress(0f)
+                        o.visualBackgrounds?.let { VisualPlus.applyBackgrounds(pm, it) }
+                        o.visualCamera?.let { (van, vis) -> VisualPlus.applyCamera(pmF, van, vis) }
                     }
+                    if (o.frRom != null) {
+                        l.step(Step.FRENCH); l.progress(0f)
+                        RandomAccessFile(o.frRom, "r").use { frF ->
+                            stats = Francizer(
+                                NdsRom(usF), NdsRom(frF), pm,
+                                Charset(o.charmap), Francizer.parseTranslations(o.translationsJson),
+                            ) { l.log(it) }.run(o.frenchGraphics)
+                        }
+                    }
+                    pm.finish()
                 }
             }
         }

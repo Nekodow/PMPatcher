@@ -23,15 +23,9 @@ class Francizer(
         val nu = Narc(us.read(MSG)); val nf = Narc(fr.read(MSG)); val np = Narc(pm.read(MSG))
         if (nu.files.size != nf.files.size || nu.files.size != np.files.size) throw PatchException("msg_count")
 
-        // English string (as found in the patched ROM) -> French replacement
-        val tr = HashMap<List<Int>, IntArray>()
-        val decoded = HashMap<Int, Msg.File>()
-        for ((key, value) in translations) {
-            val (fi, j) = key.split(':').map { it.toInt() }
-            val en = decoded.getOrPut(fi) { Msg.decode(np.files[fi]) }.strings[j]
-            val frText = value ?: charset.toText(Msg.decode(nf.files[fi]).strings[j])
-            tr[en.toList()] = charset.fromText(frText)
-        }
+        // English text -> French replacement (null = keep the official French string at that spot)
+        val tr = HashMap<List<Int>, IntArray?>()
+        for ((en, value) in translations) tr[charset.fromText(en).toList()] = value?.let { charset.fromText(it) }
 
         for (i in np.files.indices) {
             val a = nu.files[i]; val b = nf.files[i]; val c = np.files[i]
@@ -50,7 +44,7 @@ class Francizer(
                         val k = index[key]!!.minBy { kotlin.math.abs(it - j) }
                         res += sf[k]; st.stringsMoved++
                     }
-                    tr.containsKey(key) -> { res += tr[key]!!; st.translated++ }
+                    tr.containsKey(key) -> { res += tr[key] ?: (if (j < sf.size) sf[j] else s); st.translated++ }
                     else -> { res += s; st.english++ }
                 }
             }
@@ -67,7 +61,6 @@ class Francizer(
                 pm.write(u, b); st.gfx++
             }
         }
-        pm.finish()
         return st
     }
 

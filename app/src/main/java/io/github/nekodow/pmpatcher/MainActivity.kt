@@ -82,12 +82,9 @@ class MainActivity : Activity() {
     }
 
     private fun askOutput() {
-        val name0 = selectedPatchName()
-        val base = when {
-            name0.contains("Camera", true) -> "ProjectPM_VisualPlusCamera"
-            name0.contains("Visual", true) -> "ProjectPM_VisualPlus"
-            else -> "ProjectPM"
-        }
+        val bg = findViewById<CheckBox>(R.id.checkVisualBg).isChecked
+        val cam = findViewById<CheckBox>(R.id.checkVisualCam).isChecked
+        val base = "ProjectPM" + (if (bg || cam) "_VisualPlus" else "") + (if (cam) "Camera" else "")
         val name = base + (if (switchFr.isChecked) "_FR" else "") + ".nds"
         val i = Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
             .setType("application/octet-stream").putExtra(Intent.EXTRA_TITLE, name)
@@ -169,11 +166,11 @@ class MainActivity : Activity() {
 
     /** Asset name of the selected built-in patch, or null for a custom file. */
     private fun builtInAsset(): String? = when (patchGroup.checkedRadioButtonId) {
-        R.id.patchNormal -> "PlatinumMultiplayerV0.4.4.xdelta"
-        R.id.patchVisual -> "PlatinumMultiplayerV0.4.4-VisualPlus.xdelta"
-        R.id.patchCamera -> "PlatinumMultiplayerV0.4.4-VisualPlusCamera.xdelta"
+        R.id.patchNormal -> "PlatinumMultiplayerV0.4.7.xdelta"
         else -> null
     }
+
+    private fun asset(name: String): ByteArray = assets.open(name).use { it.readBytes() }
 
     private fun selectedPatchName(): String = builtInAsset() ?: customPatchName
 
@@ -204,6 +201,7 @@ class MainActivity : Activity() {
         btnCreate.isEnabled = ready && !busy
         btnUs.isEnabled = !busy; btnPatch.isEnabled = !busy; btnFr.isEnabled = !busy
         switchFr.isEnabled = !busy; checkGfx.isEnabled = !busy
+        findViewById<View>(R.id.checkVisualBg).isEnabled = !busy; findViewById<View>(R.id.checkVisualCam).isEnabled = !busy
         for (i in 0 until patchGroup.childCount) patchGroup.getChildAt(i).isEnabled = !busy
     }
 
@@ -217,6 +215,9 @@ class MainActivity : Activity() {
         val p = selectedPatch() ?: return
         val french = switchFr.isChecked
         val gfx = checkGfx.isChecked
+        val visualBg = if (findViewById<CheckBox>(R.id.checkVisualBg).isChecked) asset("visualplus/battlebg.narc") else null
+        val visualCam = if (findViewById<CheckBox>(R.id.checkVisualCam).isChecked)
+            asset("visualplus/cam_vanilla.bin") to asset("visualplus/cam_visual.bin") else null
         setBusy(true); refresh()
         progress.visibility = View.VISIBLE; progress.progress = 0
         statusMain.text = getString(R.string.busy)
@@ -229,6 +230,7 @@ class MainActivity : Activity() {
                     statusMain.text = when (step) {
                         Pipeline.Step.VERIFY -> getString(R.string.step_verify)
                         Pipeline.Step.PATCH -> getString(R.string.step_patching)
+                        Pipeline.Step.VISUAL -> getString(R.string.step_visual)
                         Pipeline.Step.FRENCH -> getString(R.string.step_french)
                         Pipeline.Step.DONE -> getString(R.string.step_saving)
                     } + "\n" + getString(R.string.busy)
@@ -239,7 +241,7 @@ class MainActivity : Activity() {
             try {
                 outFile.delete()
                 val r = Pipeline.run(
-                    Pipeline.Options(usFile, p, if (french) frFile else null, gfx, charmap, trad, outFile),
+                    Pipeline.Options(usFile, p, if (french) frFile else null, gfx, visualBg, visualCam, charmap, trad, outFile),
                     listener,
                 )
                 contentResolver.openOutputStream(target, "wt")!!.use { out ->
@@ -270,6 +272,7 @@ class MainActivity : Activity() {
         e is PatchException && e.code == "checksum" -> getString(R.string.err_checksum)
         e is PatchException && e.code == "not_vcdiff" -> getString(R.string.err_not_vcdiff)
         e is PatchException && e.code == "rom_full" -> getString(R.string.err_rom_full)
+        e is PatchException && e.code.startsWith("visual_") -> getString(R.string.err_visual)
         e is IOException && (e.message ?: "").contains("ENOSPC") -> getString(R.string.err_storage)
         e is OutOfMemoryError -> getString(R.string.err_generic, "out of memory")
         else -> getString(R.string.err_generic, e.message ?: e.javaClass.simpleName)

@@ -42,8 +42,6 @@
             android:layout_marginTop="4dp"
             android:checkedButton="@+id/patchNormal">
             <RadioButton android:id="@+id/patchNormal" style="@style/PatchChoice" android:text="@string/patch_normal" />
-            <RadioButton android:id="@+id/patchVisual" style="@style/PatchChoice" android:text="@string/patch_visual" />
-            <RadioButton android:id="@+id/patchCamera" style="@style/PatchChoice" android:text="@string/patch_camera" />
             <RadioButton android:id="@+id/patchCustom" style="@style/PatchChoice" android:text="@string/patch_custom" />
         </RadioGroup>
         <LinearLayout android:id="@+id/customPatchRow" style="@style/Row" android:visibility="gone">
@@ -51,6 +49,20 @@
             <TextView android:id="@+id/statusPatch" style="@style/Status" android:text="@string/none" />
         </LinearLayout>
         <TextView android:id="@+id/customPatchHint" style="@style/Hint" android:text="@string/step_patch_hint" android:visibility="gone" />
+
+        <TextView style="@style/StepTitle" android:text="@string/visual_title" />
+        <TextView style="@style/Hint" android:text="@string/visual_hint" />
+        <CheckBox
+            android:id="@+id/checkVisualBg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/visual_bg" />
+        <CheckBox
+            android:id="@+id/checkVisualCam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/visual_cam" />
 
         <!-- 3. French -->
         <Switch
