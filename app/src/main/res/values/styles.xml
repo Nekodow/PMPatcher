@@ -36,6 +36,13 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="PatchChoice">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
     <style name="Status">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>

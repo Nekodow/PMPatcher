@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ProgressBar
+import android.widget.RadioGroup
 import android.widget.ScrollView
 import android.widget.Switch
 import android.widget.TextView
@@ -32,6 +33,7 @@ class MainActivity : Activity() {
     private lateinit var checkGfx: CheckBox
     private lateinit var frBlock: View
     private lateinit var progress: ProgressBar
+    private lateinit var patchGroup: RadioGroup
 
     private val usFile by lazy { File(cacheDir, "us.nds") }
     private val frFile by lazy { File(cacheDir, "fr.nds") }
@@ -39,8 +41,8 @@ class MainActivity : Activity() {
 
     private var usOk = false
     private var frOk = false
-    private var patch: ByteArray? = null
-    private var patchName = ""
+    private var customPatch: ByteArray? = null
+    private var customPatchName = ""
     private var busy = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +54,7 @@ class MainActivity : Activity() {
         statusFr = findViewById(R.id.statusFr); statusMain = findViewById(R.id.statusMain)
         switchFr = findViewById(R.id.switchFr); checkGfx = findViewById(R.id.checkGfx)
         frBlock = findViewById(R.id.frBlock); progress = findViewById(R.id.progress)
+        patchGroup = findViewById(R.id.patchGroup)
 
         // A fresh start: forget files copied by a previous session.
         usFile.delete(); frFile.delete(); outFile.delete()
@@ -61,6 +64,12 @@ class MainActivity : Activity() {
         btnFr.setOnClickListener { pick(REQ_FR) }
         switchFr.setOnCheckedChangeListener { _, on ->
             frBlock.visibility = if (on) View.VISIBLE else View.GONE
+            refresh()
+        }
+        patchGroup.setOnCheckedChangeListener { _, id ->
+            val custom = id == R.id.patchCustom
+            findViewById<View>(R.id.customPatchRow).visibility = if (custom) View.VISIBLE else View.GONE
+            findViewById<View>(R.id.customPatchHint).visibility = if (custom) View.VISIBLE else View.GONE
             refresh()
         }
         btnCreate.setOnClickListener { askOutput() }
@@ -73,9 +82,10 @@ class MainActivity : Activity() {
     }
 
     private fun askOutput() {
+        val name0 = selectedPatchName()
         val base = when {
-            patchName.contains("Camera", true) -> "ProjectPM_VisualPlusCamera"
-            patchName.contains("Visual", true) -> "ProjectPM_VisualPlus"
+            name0.contains("Camera", true) -> "ProjectPM_VisualPlusCamera"
+            name0.contains("Visual", true) -> "ProjectPM_VisualPlus"
             else -> "ProjectPM"
         }
         val name = base + (if (switchFr.isChecked) "_FR" else "") + ".nds"
@@ -157,14 +167,27 @@ class MainActivity : Activity() {
         }
     }
 
+    /** Asset name of the selected built-in patch, or null for a custom file. */
+    private fun builtInAsset(): String? = when (patchGroup.checkedRadioButtonId) {
+        R.id.patchNormal -> "PlatinumMultiplayerV0.4.4.xdelta"
+        R.id.patchVisual -> "PlatinumMultiplayerV0.4.4-VisualPlus.xdelta"
+        R.id.patchCamera -> "PlatinumMultiplayerV0.4.4-VisualPlusCamera.xdelta"
+        else -> null
+    }
+
+    private fun selectedPatchName(): String = builtInAsset() ?: customPatchName
+
+    private fun selectedPatch(): ByteArray? =
+        builtInAsset()?.let { a -> assets.open("patches/$a").use { it.readBytes() } } ?: customPatch
+
     private fun loadPatch(uri: Uri) {
-        patch = null; refresh()
+        customPatch = null; refresh()
         val name = displayName(uri)
         try {
             val bytes = contentResolver.openInputStream(uri)!!.use { it.readBytes() }
             val magic = bytes.size > 4 && bytes[0] == 0xD6.toByte() && bytes[1] == 0xC3.toByte() && bytes[2] == 0xC4.toByte()
             if (magic) {
-                patch = bytes; patchName = name
+                customPatch = bytes; customPatchName = name
                 statusPatch.text = getString(R.string.patch_ok, name)
             } else {
                 statusPatch.text = name + "\n✗ " + getString(R.string.err_not_vcdiff)
@@ -176,10 +199,12 @@ class MainActivity : Activity() {
     }
 
     private fun refresh() {
-        val ready = usOk && patch != null && (!switchFr.isChecked || frOk)
+        val patchReady = builtInAsset() != null || customPatch != null
+        val ready = usOk && patchReady && (!switchFr.isChecked || frOk)
         btnCreate.isEnabled = ready && !busy
         btnUs.isEnabled = !busy; btnPatch.isEnabled = !busy; btnFr.isEnabled = !busy
         switchFr.isEnabled = !busy; checkGfx.isEnabled = !busy
+        for (i in 0 until patchGroup.childCount) patchGroup.getChildAt(i).isEnabled = !busy
     }
 
     private fun setBusy(b: Boolean) {
@@ -189,7 +214,7 @@ class MainActivity : Activity() {
     }
 
     private fun create(target: Uri) {
-        val p = patch ?: return
+        val p = selectedPatch() ?: return
         val french = switchFr.isChecked
         val gfx = checkGfx.isChecked
         setBusy(true); refresh()

@@ -3,7 +3,7 @@
 Android app to build the **Pokémon Platinum Multiplayer (Project PM)** ROM directly on your phone, optionally **in French**.
 *Français plus bas.*
 
-The Project PM `.xdelta` patches use LZMA secondary compression, which mobile patchers such as Rom Patcher JS or UniPatcher can't read. PM Patcher handles it natively.
+The **Project PM 0.4.4 patches are built in** (normal, Visual+ backgrounds, Visual+ backgrounds + 3D camera), included with the permission of their authors. You can still load another `.xdelta` file for a newer version. Those patches use LZMA secondary compression, which mobile patchers such as Rom Patcher JS or UniPatcher can't read; PM Patcher handles it natively.
 
 ## Download
 
@@ -12,16 +12,15 @@ Get the APK from the [Releases](../../releases) page. Android 7.0 or newer is re
 ## What you need
 
 - A clean **Pokémon Platinum (USA) (Rev 1)** ROM (game code `CPUE`). The app checks its SHA-1 (`0862ec35b24de5c7e2dcb88c9eea0873110d755c`), which is the dump the patch was made from.
-- The Project PM patch from the official build: `PlatinumMultiplayerV0.4.4.xdelta`, `-VisualPlus` or `-VisualPlusCamera`.
 - For the French version only: a **Pokémon Version Platine (France)** ROM (game code `CPUF`).
 - About 400 MB of free storage while patching.
 
-**No ROM or patch is included.** Use your own dumps and the official patch.
+**No ROM is included.** Use your own dumps.
 
 ## How to use
 
 1. Choose the USA ROM. A ✓ appears when it is the right dump.
-2. Choose the `.xdelta` patch.
+2. Pick the built-in patch: normal, Visual+, or Visual+ and 3D camera. You can also choose *Another .xdelta file…* for a newer Project PM version.
 3. *(Optional)* Turn on **French version**, choose the French ROM, and keep or untick the French graphics.
 4. Tap **Create the ROM** and pick where to save it.
 5. Play it with a DS emulator. For online play against PC players, see [melonDS-android (Project PM online)](https://github.com/Nekodow/melonDS-android).
@@ -55,7 +54,7 @@ It can be tested on a PC against real ROMs:
 
 ## Credits
 
-- Project PM / Platinum Multiplayer by nUt, ComicartOlie and MottledAbyss.
+- Project PM / Platinum Multiplayer by nUt, ComicartOlie and MottledAbyss. Their 0.4.4 patches (`app/src/main/assets/patches`) are redistributed with their permission and remain their work.
 - `charmap.txt` (Gen 4 character table) comes from the [pret/pokeplatinum](https://github.com/pret/pokeplatinum) decompilation project.
 - LZMA decoding by [XZ for Java](https://tukaani.org/xz/java.html) (public domain / 0BSD).
 
@@ -67,22 +66,21 @@ Pokémon is a trademark of Nintendo, Game Freak and Creatures. This project is n
 
 Application Android pour créer la ROM **Pokémon Platinum Multiplayer (Project PM)** directement sur ton téléphone, **en français** si tu veux.
 
-Les patchs `.xdelta` de Project PM utilisent une compression LZMA que les patchers mobiles (Rom Patcher JS, UniPatcher…) ne savent pas lire. PM Patcher la gère.
+**Les patchs Project PM 0.4.4 sont intégrés** (normal, fonds Visual+, fonds Visual+ et caméra 3D), avec l’accord de leurs auteurs. Tu peux aussi charger un autre `.xdelta` pour une version plus récente. Ces patchs utilisent une compression LZMA que les patchers mobiles (Rom Patcher JS, UniPatcher…) ne savent pas lire. PM Patcher la gère.
 
 ## Ce qu'il faut
 
 - **Les ROMs :**
   - une ROM **Pokémon Platinum (USA) (Rev 1)** propre (code `CPUE`), vérifiée par son SHA-1 ;
   - pour la version française : une ROM **Pokémon Version Platine (France)** (code `CPUF`).
-- **Le patch** Project PM officiel (`.xdelta` : normal, VisualPlus ou VisualPlusCamera).
 - **Environ 400 Mo** d'espace libre pendant la création.
 
-**Aucune ROM ni aucun patch n'est fourni.**
+**Aucune ROM n'est fournie.**
 
 ## Utilisation
 
 1. Choisis la ROM USA. Un ✓ apparaît si c'est la bonne.
-2. Choisis le patch `.xdelta`.
+2. Choisis le patch intégré : normal, Visual+, ou Visual+ et caméra 3D. Tu peux aussi prendre *Un autre fichier .xdelta…* pour une version plus récente.
 3. *(Optionnel)* Active **Version française** et choisis la ROM FR.
 4. Appuie sur **Créer la ROM** et choisis où l'enregistrer.
 5. Joue avec un émulateur DS. Pour jouer en ligne avec des joueurs PC : [melonDS-android (Project PM online)](https://github.com/Nekodow/melonDS-android).

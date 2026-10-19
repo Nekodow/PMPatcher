@@ -4,8 +4,12 @@
     <string name="subtitle">Crée la ROM Project PM sur ton téléphone, en français si tu veux.</string>
 
     <string name="step_us">1. ROM Pokémon Platine propre (USA, Rev 1)</string>
-    <string name="step_patch">2. Patch Project PM (.xdelta)</string>
-    <string name="step_patch_hint">Le patch normal, VisualPlus ou VisualPlusCamera fourni avec le build Project PM.</string>
+    <string name="step_patch">2. Patch Project PM</string>
+    <string name="step_patch_hint">Pour une version de Project PM plus récente que celle intégrée.</string>
+    <string name="patch_normal">Project PM 0.4.4 (intégré)</string>
+    <string name="patch_visual">Project PM 0.4.4 + fonds de combat Visual+ (intégré)</string>
+    <string name="patch_camera">Project PM 0.4.4 + fonds Visual+ et caméra 3D (intégré)</string>
+    <string name="patch_custom">Un autre fichier .xdelta…</string>
     <string name="french_switch">Version française</string>
     <string name="step_fr">3. ROM Pokémon Platine (France)</string>
     <string name="step_fr_hint">Ta ROM française. Elle fournit les textes et images officiels en français.</string>
@@ -36,5 +40,5 @@
     <string name="err_rom_full">Pas assez de place libre dans la ROM pour les fichiers français.</string>
     <string name="err_storage">Espace de stockage insuffisant (il faut environ 400 Mo libres).</string>
     <string name="err_generic">Erreur: %1$s</string>
-    <string name="footer">Aucune ROM ni patch n’est inclus: utilise tes propres ROMs et le patch officiel Project PM. Tout se fait sur ton téléphone.</string>
+    <string name="footer">Aucune ROM n’est incluse: utilise tes propres ROMs. Les patchs Project PM sont inclus avec l’accord de leurs auteurs (nUt, ComicartOlie, MottledAbyss). Tout se fait sur ton téléphone.</string>
 </resources>

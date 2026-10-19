@@ -4,8 +4,12 @@
     <string name="subtitle">Build the Project PM ROM on your phone, optionally in French.</string>
 
     <string name="step_us">1. Clean Pokémon Platinum ROM (USA, Rev 1)</string>
-    <string name="step_patch">2. Project PM patch (.xdelta)</string>
-    <string name="step_patch_hint">The normal, VisualPlus or VisualPlusCamera patch from the Project PM build.</string>
+    <string name="step_patch">2. Project PM patch</string>
+    <string name="step_patch_hint">Use this for a newer Project PM version than the one built in.</string>
+    <string name="patch_normal">Project PM 0.4.4 (built in)</string>
+    <string name="patch_visual">Project PM 0.4.4 + Visual+ battle backgrounds (built in)</string>
+    <string name="patch_camera">Project PM 0.4.4 + Visual+ backgrounds and 3D camera (built in)</string>
+    <string name="patch_custom">Another .xdelta file…</string>
     <string name="french_switch">French version</string>
     <string name="step_fr">3. Pokémon Platinum ROM (France)</string>
     <string name="step_fr_hint">Your French dump. Used for the official French text and graphics.</string>
@@ -36,5 +40,5 @@
     <string name="err_rom_full">Not enough free space in the ROM for the French files.</string>
     <string name="err_storage">Not enough storage space (about 400 MB of free space is needed).</string>
     <string name="err_generic">Error: %1$s</string>
-    <string name="footer">No ROM or patch is included: use your own dumps and the official Project PM patch. Patching is done entirely on your phone.</string>
+    <string name="footer">No ROM is included: use your own dumps. The Project PM patches are included with the permission of their authors (nUt, ComicartOlie, MottledAbyss). Patching is done entirely on your phone.</string>
 </resources>

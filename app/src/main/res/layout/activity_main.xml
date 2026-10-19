@@ -35,11 +35,22 @@
 
         <!-- 2. Patch -->
         <TextView style="@style/StepTitle" android:text="@string/step_patch" />
-        <TextView style="@style/Hint" android:text="@string/step_patch_hint" />
-        <LinearLayout style="@style/Row">
+        <RadioGroup
+            android:id="@+id/patchGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:checkedButton="@+id/patchNormal">
+            <RadioButton android:id="@+id/patchNormal" style="@style/PatchChoice" android:text="@string/patch_normal" />
+            <RadioButton android:id="@+id/patchVisual" style="@style/PatchChoice" android:text="@string/patch_visual" />
+            <RadioButton android:id="@+id/patchCamera" style="@style/PatchChoice" android:text="@string/patch_camera" />
+            <RadioButton android:id="@+id/patchCustom" style="@style/PatchChoice" android:text="@string/patch_custom" />
+        </RadioGroup>
+        <LinearLayout android:id="@+id/customPatchRow" style="@style/Row" android:visibility="gone">
             <Button android:id="@+id/btnPatch" style="@style/PickButton" android:text="@string/choose" />
             <TextView android:id="@+id/statusPatch" style="@style/Status" android:text="@string/none" />
         </LinearLayout>
+        <TextView android:id="@+id/customPatchHint" style="@style/Hint" android:text="@string/step_patch_hint" android:visibility="gone" />
 
         <!-- 3. French -->
         <Switch
